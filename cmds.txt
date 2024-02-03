@@ -1,0 +1,93 @@
+python3 -m venv venv
+source ./venv/bin/activate
+python3 -m pip install -r requirements.txt
+waitress-serve --listen=127.0.0.1:8080 main:app
+
+==============================================
+
+
+sudo docker build -t sample_app:1 .
+sudo docker run -d -p 8080:8080 sample_app:1
+sudo docker exec -it <image_name> sh
+curl http://localhost:8080
+
+
+==============================================
+
+
+
+Enable ingress:-
+minikube addons enable ingress
+
+minikube tunnel
+curl --resolve "www.example.com:8080:127.0.0.1" -i http://www.example.com
+
+minikube docker-env
+
+eval $(minikube docker-env)   # before building image 
+
+minikube ip
+
+
+#  kubectl port-forward service/myapp 8080:8080
+
+
+kubectl get all
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==============================================
+apt-get update && apt-get -y install sudo curl
+
+apt-get -y install podman
+minikube start --driver=podman
+
+
+
+Install minikube:-
+
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+install minikube-linux-amd64 /usr/local/bin/minikube
+
+minikube start --driver=docker
+sudo usermod -aG docker $USER && newgrp docker
+
+
+Install kubectl:-
+
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+
+
+
+docker:---
+
+apt-get update
+apt-get install ca-certificates curl
+install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+chmod a+r /etc/apt/keyrings/docker.asc
+
+
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+apt-get update
+
+apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+
